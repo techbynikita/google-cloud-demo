@@ -16,6 +16,19 @@ const firestore = new Firestore({
 app.use(cors());
 app.use(express.json());
 
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({ 
+    service: 'feedback-wall-backend',
+    status: 'running',
+    endpoints: {
+      health: '/health',
+      getFeedback: 'GET /api/feedback',
+      postFeedback: 'POST /api/feedback'
+    }
+  });
+});
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'feedback-wall-backend' });
