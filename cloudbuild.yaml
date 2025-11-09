@@ -11,7 +11,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-backend:${BUILD_ID}'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-backend:latest'
     id: 'push-backend'
 
   - name: 'gcr.io/cloud-builders/docker'
@@ -34,7 +34,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-frontend:${BUILD_ID}'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-frontend:latest'
     id: 'push-frontend'
 
   - name: 'gcr.io/cloud-builders/docker'
@@ -51,7 +51,7 @@ steps:
       - 'deploy'
       - 'feedback-wall-backend'
       - '--image'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-backend:${BUILD_ID}'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-backend:latest'
       - '--region'
       - '${_REGION}'
       - '--platform'
@@ -77,7 +77,7 @@ steps:
       - 'deploy'
       - 'feedback-wall-frontend'
       - '--image'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-frontend:${BUILD_ID}'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-frontend:latest'
       - '--region'
       - '${_REGION}'
       - '--platform'
