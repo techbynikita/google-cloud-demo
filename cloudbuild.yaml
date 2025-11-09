@@ -4,7 +4,7 @@ steps:
     args:
       - 'build'
       - '-t'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-backend:${COMMIT_SHA}'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-backend:${BUILD_ID}'
       - '-t'
       - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-backend:latest'
       - './backend'
@@ -13,7 +13,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-backend:${COMMIT_SHA}'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-backend:${BUILD_ID}'
     id: 'push-backend'
 
   - name: 'gcr.io/cloud-builders/docker'
@@ -27,7 +27,7 @@ steps:
     args:
       - 'build'
       - '-t'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-frontend:${COMMIT_SHA}'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-frontend:${BUILD_ID}'
       - '-t'
       - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-frontend:latest'
       - '--build-arg'
@@ -38,7 +38,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-frontend:${COMMIT_SHA}'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-frontend:${BUILD_ID}'
     id: 'push-frontend'
 
   - name: 'gcr.io/cloud-builders/docker'
@@ -55,7 +55,7 @@ steps:
       - 'deploy'
       - 'feedback-wall-backend'
       - '--image'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-backend:${COMMIT_SHA}'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-backend:${BUILD_ID}'
       - '--region'
       - '${_REGION}'
       - '--platform'
@@ -81,7 +81,7 @@ steps:
       - 'deploy'
       - 'feedback-wall-frontend'
       - '--image'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-frontend:${COMMIT_SHA}'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY}/feedback-wall-frontend:${BUILD_ID}'
       - '--region'
       - '${_REGION}'
       - '--platform'
