@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const { Firestore } = require('@google-cloud/firestore');
 require('dotenv').config();
 
@@ -16,18 +17,12 @@ const firestore = new Firestore({
 app.use(cors());
 app.use(express.json());
 
-// Root endpoint
-app.get('/', (req, res) => {
-  res.json({ 
-    service: 'feedback-wall-backend',
-    status: 'running',
-    endpoints: {
-      health: '/health',
-      getFeedback: 'GET /api/feedback',
-      postFeedback: 'POST /api/feedback'
-    }
-  });
-});
+// Serve static files from React app
+app.use(express.static('public'));
+
+// API routes (before catch-all)
+
+// API routes only - frontend handles root route
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -96,8 +91,14 @@ app.delete('/api/feedback/:id', async (req, res) => {
   }
 });
 
+// Catch-all handler: send back React's index.html file for client-side routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 app.listen(PORT, () => {
-  console.log(`🚀 Backend server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📊 Connected to Firestore`);
+  console.log(`🌐 Serving frontend from /public`);
 });
 

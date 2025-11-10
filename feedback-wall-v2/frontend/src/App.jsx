@@ -4,7 +4,8 @@ import FeedbackForm from './components/FeedbackForm';
 import FeedbackList from './components/FeedbackList';
 import Header from './components/Header';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+// Use relative URL since frontend and backend are in same service
+const API_URL = import.meta.env.VITE_API_URL || '';
 
 function App() {
   const [feedback, setFeedback] = useState([]);
