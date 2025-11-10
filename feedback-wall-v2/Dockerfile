@@ -14,11 +14,8 @@ RUN npm install
 # Copy frontend source
 COPY frontend/ ./
 
-# Build frontend (API URL will be set at runtime via environment variable)
-ARG VITE_API_URL
-ENV VITE_API_URL=${VITE_API_URL:-http://localhost:8080}
-
-# Build React app
+# Build frontend (use relative URLs - no API URL needed since same service)
+# Don't set VITE_API_URL so it defaults to empty string and uses relative URLs
 RUN npm run build
 
 # Stage 2: Backend with frontend
