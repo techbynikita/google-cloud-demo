@@ -15,12 +15,15 @@ function App() {
   const fetchFeedback = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${API_URL}/api/feedback`);
+      // Use relative URL - same domain as frontend
+      const url = API_URL ? `${API_URL}/api/feedback` : '/api/feedback';
+      const response = await axios.get(url);
       setFeedback(response.data);
       setError(null);
     } catch (err) {
       console.error('Error fetching feedback:', err);
-      setError('Failed to load feedback. Please try again.');
+      console.error('Error details:', err.response?.data || err.message);
+      setError(`Failed to load feedback: ${err.response?.data?.error || err.message}`);
     } finally {
       setLoading(false);
     }
@@ -35,11 +38,12 @@ function App() {
 
   const handleSubmit = async (message, author) => {
     try {
-      await axios.post(`${API_URL}/api/feedback`, { message, author });
+      const url = API_URL ? `${API_URL}/api/feedback` : '/api/feedback';
+      await axios.post(url, { message, author });
       await fetchFeedback(); // Refresh the list
     } catch (err) {
       console.error('Error submitting feedback:', err);
-      setError('Failed to submit feedback. Please try again.');
+      setError(`Failed to submit feedback: ${err.response?.data?.error || err.message}`);
     }
   };
 
