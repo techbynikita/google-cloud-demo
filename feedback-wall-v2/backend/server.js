@@ -17,16 +17,10 @@ const firestore = new Firestore({
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from React app
-app.use(express.static('public'));
-
-// API routes (before catch-all)
-
-// API routes only - frontend handles root route
-
+// API routes (must be before static files)
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', service: 'feedback-wall-backend' });
+  res.json({ status: 'ok', service: 'feedback-wall-v2' });
 });
 
 // Get all feedback
@@ -90,6 +84,9 @@ app.delete('/api/feedback/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to delete feedback' });
   }
 });
+
+// Serve static files from React app (after API routes)
+app.use(express.static('public'));
 
 // Catch-all handler: send back React's index.html file for client-side routing
 app.get('*', (req, res) => {
