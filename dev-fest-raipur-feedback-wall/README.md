@@ -1,6 +1,6 @@
-# Feedback Wall V2 - Single Service Deployment
+# DevFest Raipur Feedback Wall
 
-A full-stack serverless feedback wall application deployed as a **single Cloud Run service** using Cloud Run UI with GitHub integration.
+A full-stack serverless feedback wall application built for **DevFest Raipur** and deployed as a **single Cloud Run service** using Cloud Run UI with GitHub integration.
 
 ## 🎯 Architecture
 
@@ -8,11 +8,12 @@ A full-stack serverless feedback wall application deployed as a **single Cloud R
 - **One Service** - Combined frontend + backend on Cloud Run
 - **Express serves React** - Backend serves frontend static files
 - **Firestore** - Serverless NoSQL database (`techbynikita-default`)
+- **Google Brand Colors** - Beautiful UI using Google's official color palette
 
 ## 📁 Project Structure
 
 ```
-feedback-wall-v2/
+dev-fest-raipur-feedback-wall/
 ├── Dockerfile              # Single Dockerfile for combined app
 ├── backend/
 │   ├── server.js          # Express API server
@@ -21,10 +22,9 @@ feedback-wall-v2/
 │   ├── src/               # React application
 │   ├── package.json       # Frontend dependencies
 │   └── vite.config.js    # Vite configuration
-├── DEPLOY-SINGLE-SERVICE.md    # Deployment guide
-├── ADD-FIRESTORE-PERMISSION.md # Prerequisites
-├── TROUBLESHOOTING.md           # Debug guide
-└── WHY-ARTIFACT-REGISTRY.md     # Architecture explanation
+├── DEPLOYMENT-FLOW.md     # Complete deployment guide
+├── DEMO-EXPLANATION.md    # Tech stack & architecture overview
+└── README.md              # This file
 ```
 
 ## 🚀 Quick Start
@@ -33,7 +33,6 @@ feedback-wall-v2/
 
 1. **Firestore Database**: `techbynikita-default` (already created)
 2. **Service Account Permission**: `Cloud Datastore User` role
-   - See [ADD-FIRESTORE-PERMISSION.md](./ADD-FIRESTORE-PERMISSION.md)
 
 ### Deployment Steps
 
@@ -42,15 +41,15 @@ feedback-wall-v2/
 
 2. **Create Service**
    - Click "CREATE SERVICE"
-   - Service name: `feedback-wall-v2`
+   - Service name: `dev-fest-raipur-feedback-wall`
    - Region: `asia-south1`
 
 3. **Connect GitHub**
    - Select "Continuously deploy from source repository"
-   - Repository: `techbynikita/google-cloud-demo`
+   - Repository: `techbynikita/google-cloud` (or your repo name)
    - Branch: `main`
-   - Dockerfile: `feedback-wall-v2/Dockerfile`
-   - Context: `feedback-wall-v2`
+   - Dockerfile: `dev-fest-raipur-feedback-wall/Dockerfile`
+   - Context: `dev-fest-raipur-feedback-wall`
 
 4. **Configure Service**
    - Port: `8080`
@@ -60,12 +59,12 @@ feedback-wall-v2/
 5. **Deploy**
    - Click "CREATE"
 
-📖 **Detailed guide**: See [DEPLOY-SINGLE-SERVICE.md](./DEPLOY-SINGLE-SERVICE.md)
+📖 **Detailed guide**: See [DEPLOYMENT-FLOW.md](./DEPLOYMENT-FLOW.md)
 
 ## 🔧 How It Works
 
 ```
-Single Service (feedback-wall-v2)
+Single Service (dev-fest-raipur-feedback-wall)
 │
 ├── Express Server (Port 8080)
 │   ├── /api/feedback (GET, POST) → Firestore
@@ -78,12 +77,13 @@ Single Service (feedback-wall-v2)
 
 ## 📊 Features
 
-- ✅ **React Frontend** - Beautiful UI with Tailwind CSS
+- ✅ **React Frontend** - Beautiful UI with Tailwind CSS and Google brand colors
 - ✅ **Node.js Backend** - Express API server
 - ✅ **Firestore Integration** - Real-time database
 - ✅ **Single Service** - Simpler architecture
 - ✅ **Auto-deploy** - Push to GitHub = automatic deployment
 - ✅ **Serverless** - Scales to zero, pay per use
+- ✅ **Google Cloud Integration** - Full serverless stack
 
 ## 🔄 Updates
 
@@ -94,33 +94,42 @@ When you push code to GitHub:
 
 ## 📚 Documentation
 
-- **[DEPLOY-SINGLE-SERVICE.md](./DEPLOY-SINGLE-SERVICE.md)** - Step-by-step deployment
-- **[ADD-FIRESTORE-PERMISSION.md](./ADD-FIRESTORE-PERMISSION.md)** - Grant Firestore access
-- **[TROUBLESHOOTING.md](./TROUBLESHOOTING.md)** - Debug common issues
-- **[WHY-ARTIFACT-REGISTRY.md](./WHY-ARTIFACT-REGISTRY.md)** - Architecture explanation
+- **[DEPLOYMENT-FLOW.md](./DEPLOYMENT-FLOW.md)** - Complete deployment flow & configuration guide
+- **[DEMO-EXPLANATION.md](./DEMO-EXPLANATION.md)** - Tech stack, architecture, and demo explanation
 
-## 🆚 Comparison with V1
+## 🎨 Technology Stack
 
-| Feature | V1 (Cloud Build) | V2 (Single Service) |
-|---------|------------------|---------------------|
-| Services | 2 (frontend + backend) | 1 (combined) |
-| Dockerfiles | 2 | 1 |
-| Deployment | CLI (`gcloud builds submit`) | UI + GitHub |
-| Build Config | `cloudbuild.yaml` | Dockerfile only |
-| Architecture | Separate services | Combined service |
+### Frontend
+- **React 18** - Modern UI library
+- **Vite** - Fast build tool
+- **Tailwind CSS** - Utility-first CSS framework
+- **Google Brand Colors** - Official Google color palette
+
+### Backend
+- **Node.js** - JavaScript runtime
+- **Express.js** - Web application framework
+- **CORS** - Cross-Origin Resource Sharing
+
+### Database
+- **Google Cloud Firestore** - Serverless NoSQL database
+
+### Deployment
+- **Google Cloud Run** - Serverless container platform
+- **Cloud Build** - Automated builds
+- **Artifact Registry** - Docker image storage (automatic)
 
 ## 🎯 Configuration
 
 - **Project ID**: `techbynikita`
 - **Region**: `asia-south1` (Mumbai)
 - **Firestore Database**: `techbynikita-default`
-- **Service Account**: `987410717236-compute@developer.gserviceaccount.com`
+- **Service Name**: `dev-fest-raipur-feedback-wall`
 
 ## ✅ After Deployment
 
 ### Get Service URL
 ```bash
-gcloud run services describe feedback-wall-v2 \
+gcloud run services describe dev-fest-raipur-feedback-wall \
   --region=asia-south1 \
   --project=techbynikita \
   --format='value(status.url)'
@@ -136,4 +145,4 @@ If you see "Forbidden":
 
 ---
 
-**Built with ❤️ using Google Cloud's serverless stack**
+**Built with ❤️ for DevFest Raipur using Google Cloud's serverless stack** 🚀
