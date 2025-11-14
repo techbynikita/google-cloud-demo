@@ -16,7 +16,25 @@ function FeedbackList({ feedback }) {
   const formatDate = (timestamp) => {
     if (!timestamp) return 'Just now';
     
-    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+    let date;
+    try {
+      // Handle Firestore Timestamp objects
+      if (timestamp && typeof timestamp === 'object' && timestamp.toDate) {
+        date = timestamp.toDate();
+      } else {
+        // Handle ISO string or other date formats
+        date = new Date(timestamp);
+      }
+      
+      // Check if date is valid
+      if (isNaN(date.getTime())) {
+        return 'Just now';
+      }
+    } catch (error) {
+      console.error('Error parsing date:', error);
+      return 'Just now';
+    }
+    
     const now = new Date();
     const diff = now - date;
     const seconds = Math.floor(diff / 1000);
@@ -49,7 +67,7 @@ function FeedbackList({ feedback }) {
           >
             <div className="flex items-start justify-between mb-3">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                <div className="w-10 h-10 bg-gradient-to-br from-google-blue to-google-blue/80 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                   {item.author ? item.author.charAt(0).toUpperCase() : 'A'}
                 </div>
                 <div>

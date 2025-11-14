@@ -1,12 +1,17 @@
 function Header() {
   return (
-    <header className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white shadow-lg">
+    <header 
+      className="text-white shadow-lg"
+      style={{
+        background: 'linear-gradient(to right, #4285f4, #ea4335, #fbbc04, #34a853)'
+      }}
+    >
       <div className="container mx-auto px-4 py-12 max-w-6xl">
         <div className="text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             🌩️ Welcome to the Serverless Feedback Wall
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-blue-100">
+          <p className="text-xl md:text-2xl mb-8 text-white/90">
             A live demo showing the full power of Google Cloud's serverless stack
           </p>
           
@@ -50,7 +55,7 @@ function Header() {
           </div>
           
           <div className="mt-6 flex items-center justify-center space-x-2">
-            <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-green-500 text-white shadow-lg">
+            <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-google-green text-white shadow-lg">
               <span className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></span>
               Live & Running
             </span>

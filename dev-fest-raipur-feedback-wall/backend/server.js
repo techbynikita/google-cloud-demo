@@ -31,10 +31,16 @@ app.get('/api/feedback', async (req, res) => {
     
     const feedback = [];
     snapshot.forEach(doc => {
-      feedback.push({
+      const data = doc.data();
+      // Convert Firestore Timestamp to ISO string for JSON serialization
+      const feedbackItem = {
         id: doc.id,
-        ...doc.data()
-      });
+        message: data.message,
+        author: data.author,
+        timestamp: data.timestamp?.toDate ? data.timestamp.toDate().toISOString() : (data.timestamp || new Date().toISOString()),
+        createdAt: data.createdAt || (data.timestamp?.toDate ? data.timestamp.toDate().toISOString() : new Date().toISOString())
+      };
+      feedback.push(feedbackItem);
     });
     
     res.json(feedback);
